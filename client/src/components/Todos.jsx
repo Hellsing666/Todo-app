@@ -2,12 +2,14 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const Todos = () => {
   const [todos, setTodos] = useState([]);
 
   const updateTodo = async (id, description, completed) => {
     try {
-      const response = await axios.patch(`http://localhost:5000/todos/${id}`, {
+      const response = await axios.patch(`${API_URL}/todos/${id}`, {
         description: description,
         completed: completed,
       });
@@ -26,7 +28,7 @@ const Todos = () => {
 
   const addTodo = async (description) => {
     try {
-      const response = await axios.post(`http://localhost:5000/todos/`, {
+      const response = await axios.post(`${API_URL}/todos/`, {
         description: description,
       });
       setTodos((prevTodos) => [...prevTodos, response.data]);
@@ -37,7 +39,7 @@ const Todos = () => {
 
   const deleteTodo = async (id) => {
     try {
-      const response = await axios.delete(`http://localhost:5000/todos/${id}`);
+      const response = await axios.delete(`${API_URL}/todos/${id}`);
       console.log(response.data);
       setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
     } catch (error) {
@@ -48,7 +50,7 @@ const Todos = () => {
   useEffect(() => {
     const fetchTodos = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/todos");
+        const response = await axios.get(`${API_URL}/todos`);
         setTodos(response.data);
         console.log(response.data);
       } catch (error) {
