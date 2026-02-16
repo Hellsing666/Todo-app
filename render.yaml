@@ -19,9 +19,12 @@ services:
   - type: web
     name: pern-todo-frontend
     env: static
-    plan: free 
     buildCommand: cd client && npm install && npm run build
     staticPublishPath: ./client/dist
+    routes:
+      - type: rewrite
+        source: "/*"
+        destination: /index.html
     branch: main 
     envVars:
       - key: VITE_API_URL
