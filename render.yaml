@@ -16,7 +16,7 @@ services:
       - key: PORT
         value: 10000
 
-  - type: static
+  - type: web
     name: pern-todo-frontend
     env: static
     region: oregon 
